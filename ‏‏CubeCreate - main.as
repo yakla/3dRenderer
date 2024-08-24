@@ -4,43 +4,43 @@ ldi r14 draw_pixel
 define fov 60              //pov needs to be bettween 60 - 63
 define stopCaculations 24
 define viewer_distance 70
-define widthAndHeight 8
+define widthAndHeight 4
              //vertices x/y/z address 0-23
 			 //sides 24-47
              //projected y/x address 66-81
 			 //multiplication address 60-62
       		 //division address 63-65
-define x1 8   /please do that the x/y/z be less then 24
+define x1 8   /please do that the x/y/z be less then 24 and devidable by 8
 define y1 8
 define z1 8
 
-define x2 24
+define x2 32
 define y2 8
 define z2 8
 
 define x3 8
-define y3 24
+define y3 32
 define z3 8
 
-define x4 24
-define y4 24   
+define x4 32
+define y4 32   
 define z4 8
 
 define x5 8
 define y5 8       
-define z5 24
+define z5 32
 
-define x6 24
+define x6 32
 define y6 8
-define z6 24
+define z6 32
 
 define x7 8
-define y7 24
-define z7 24
+define y7 32
+define z7 32
 
-define x8 24
-define y8 24
-define z8 24
+define x8 32
+define y8 32
+define z8 32
 
 define size1A 1
 define size1B 2
@@ -54,7 +54,7 @@ define size3B 3
 define size4A 3
 define size4B 1
 
-define size5A 5
+define size5A 2
 define size5B 6
 
 define size6A 6
@@ -110,17 +110,23 @@ ldi r3 fov
 ldi r4 63
 adi r2 2
 lod r2 r1
-adi r1 viewer_distance  //add viewer_distance
+adi r1 viewer_distance  //add viewer_distance to z
 add r3 r3 r3     //multiply by 4
 add r3 r3 r3
+
+rsh r1 r1
+
 str r4 r3
 str r5 r1
 cal .division
 ldi r3 fov
 mov r8 r2
 lod r2 r1
+
 rsh r1 r1  //devide by 4
 rsh r1 r1
+rsh r1 r1
+
 ldi r4 63
 ldi r5 64
 lod r6 r10
@@ -145,14 +151,21 @@ lod r2 r1
 adi r1 viewer_distance //please fix
 add r3 r3 r3     //multiply by 4
 add r3 r3 r3
+
+rsh r1 r1
+
 str r4 r3
 str r5 r1
 cal .division
 ldi r3 fov
 mov r8 r2
 lod r2 r1
+
 rsh r1 r1  //devide by 4
 rsh r1 r1
+
+rsh r1 r1
+
 ldi r4 63
 ldi r5 64
 lod r6 r10
