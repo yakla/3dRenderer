@@ -1,1 +1,1 @@
-please dont steal my work it took me a lot of time to make it work 
+please credit my work if you post it somewhere it took me a lot of time to make it work 
