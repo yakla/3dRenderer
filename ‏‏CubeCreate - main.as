@@ -10,31 +10,31 @@ define widthAndHeight 8
              //projected y/x address 66-81
 			 //multiplication address 60-62
       		 //division address 63-65
-define x1 4    /please do that the x/y/z be less then 24
-define y1 4
-define z1 4
+define x1 8   /please do that the x/y/z be less then 24
+define y1 8
+define z1 8
 
 define x2 24
-define y2 4
-define z2 4
+define y2 8
+define z2 8
 
-define x3 4
+define x3 8
 define y3 24
-define z3 4
+define z3 8
 
 define x4 24
 define y4 24   
-define z4 4
+define z4 8
 
-define x5 4
-define y5 4       
+define x5 8
+define y5 8       
 define z5 24
 
 define x6 24
-define y6 4
+define y6 8
 define z6 24
 
-define x7 4
+define x7 8
 define y7 24
 define z7 24
 
@@ -83,6 +83,8 @@ define size12B 8
 cal .loadVertices
 cal .loadSizes
 cal .caculateprojectedXY
+ldi r1 buffer_screen
+str r1 r0
 cal .loadSidesToCube
 .retern
 ldi r1 buffer_screen
@@ -327,6 +329,7 @@ ldi r10 23
 ldi r15 3
 ldi r9 3
 .loadSidesToCubeLoop
+ldi r11 64
 adi r10 -47
 brh eq .retern
 inc r10
@@ -355,6 +358,7 @@ brh lt .oposite1  //x r15
 sub r3 r5 r8     /dx r8 
 ldi r15 1     
 ldi r1 100
+ldi r11 100
 .createLineLoop     
 ldi r2 100 
 str r2 r1
@@ -362,18 +366,31 @@ cal .continue
 lod r2 r2
 add r2 r8 r2
 add r2 r8 r2
-adi r2 -100
+
+cmp r2 r11
+brh lt .load0toR2
+sub r2 r11 r2
+.continewith0
+
 cmp r7 r2
 brh lt .X+
 .con
 ldi r2 100
 lod r2 r2
 add r2 r8 r2
-adi r2 -100
+
+cmp r2 r11
+brh lt .l2oad0toR2
+sub r2 r11 r2
+.c2ontinewith0
+
 add r7 r7 r7
 cmp r2 r7
 brh lt .Y+
 .co
+str r12 r3
+str r13 r4
+str r14 r0
 rsh r7 r7
 jmp .createLineLoop
 
@@ -382,9 +399,7 @@ sub r1 r7 r1
 sub r1 r7 r1
 adi r3 -2
 add r3 r15 r3
-str r12 r3
-str r13 r4
-str r14 r0
+
 jmp .con
 
 .Y+
@@ -392,9 +407,7 @@ add r1 r8 r1
 add r1 r8 r1
 adi r4 -2
 add r4 r9 r4
-str r12 r3
-str r13 r4
-str r14 r0
+
 jmp .co
 
 
@@ -420,3 +433,10 @@ sub r6 r4 r7
 ldi r9 3
 jmp .continue1
 
+.load0toR2
+ldi r2 0
+jmp .continewith0
+
+.l2oad0toR2
+ldi r2 0
+jmp .c2ontinewith0
